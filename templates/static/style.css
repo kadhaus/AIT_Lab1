@@ -1,0 +1,31 @@
+HTML {
+  height: 100%;
+  }
+.bg-black {
+    background: #151515;
+}
+.bg-gradient {
+    background: linear-gradient(to top, #183667, #000000);
+}
+
+.content {
+    margin-top:50px;
+    background-color:#fff;
+    border:5px solid black;
+    padding:10px;
+}
+
+.coefficient {
+    width:50px;
+    display:inline-block;
+}
+
+.hidden-form {
+    display:none;
+}
+.graph_frame {
+    float:right;
+    height: 350px;
+    width: 500px;
+    max-width: 100%;
+}

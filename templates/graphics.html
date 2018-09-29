@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% block title %}График{% endblock %}
+{% block content %}
+    <h3>Выберите функцию</h3>
+    <div class="row">
+    {% for func in functions %}
+        <div class="col-lg-3 col-sm-6" style="margin-bottom: 10px;"><button class="btn btn-primary btn_function" style="width:100%" value="{{ func }}">{{ func }}(x)</button></div>
+    {% endfor %}
+    </div>
+    <form class="hidden-form" id="form_for_graphics" name="graphics" method="get"  action="/draw" target="graph_frame"  enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <hr>
+    <iframe id="graph_frame" class="graph_frame" name="graph_frame"></iframe>
+    <table>
+        <tr>
+                <td><label>Функция:</label></td> <td><label id="function_name"></label></td>
+        </tr>
+        {% for field in form %}
+            {% if field.is_hidden %}
+               {{ field }}
+            {% else %}
+            <tr>
+                <td>{{ field.label_tag }}</td> <td>{{ field }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <br>
+    <br><br><br><br>
+    <button id="btn_submit" class="btn btn-primary" type="submit">Построить</button>
+    </form>
+
+    <script>
+        document.getElementById('graph_frame').onload = function() {
+            $("#graph_frame").contents().find("img").css("width","100%");
+        }
+        function checkForm(){
+                var xmin=$("#id_xmin").val();
+                var xmax=$("#id_xmax").val();
+                var ymin=$("#id_ymin").val();
+                var ymax=$("#id_ymax").val();
+                if (xmin>=xmax || ymin>=ymax){
+                    alert('Введите корректные значения (xmin<xmax, ymin<ymax)');
+                    return false;
+                }
+        }
+        $(function(){
+            $("#form_for_graphics").submit(checkForm);
+            $(".btn_function").click(function(e){
+                $("#id_function").val(this.value);
+                $("#id_function").attr('value', this.value);
+                $("#function_name").text(this.value);
+                $("#form_for_graphics").removeClass('hidden-form');
+            });
+        })
+    </script>
+{% endblock %}

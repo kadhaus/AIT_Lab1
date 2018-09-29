@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block title %}
+    Развернуть текст
+{% endblock %}
+
+{% block content %}
+    <form id="form_for_reverse" name="text" method="post"  action="/reverse"  enctype="multipart/form-data">
+    {% csrf_token %}
+        <label for="inputtext"><h3>Введите текст, который хотите развернуть</h3></label>
+        <textarea class="form-control" rows="5" name="text" id="inputtext">{% if default_text %}{{ default_text }}{% endif %}</textarea>
+        <br>
+        <button class="btn btn-primary">Развернуть</button>
+    </form>
+    {% if reversed_text %}
+        <h3>Результат:</h3>{{reversed_text}}
+    {% endif %}
+{% endblock %}
