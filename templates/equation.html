@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 {% block title %}Уравнение{% endblock %}
 {% block content %}
-    <form id="form_for_equation" name="equation" method="get"  action="/equation"  enctype="multipart/form-data">
+    <form id="form_for_equation" name="equation" method="get"  action="/equation">
         {% csrf_token %}
         <label for="coefA"><h3>Для поиска корней уравнения Ax<sup>2</sup>+Bx+C=0 введите коэффициенты:</h3></label>
         <br>

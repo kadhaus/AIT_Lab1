@@ -29,3 +29,7 @@ HTML {
     width: 500px;
     max-width: 100%;
 }
+
+.reversed-text {
+    word-break: break-all;
+}

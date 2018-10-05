@@ -1,6 +1,6 @@
 from task1.classview import NavView
 from task1 import callAPI
-from task1.forms import EquationForm, GraphicsForm
+from task1.forms import EquationForm, GraphicsForm, InvertForm
 import base64
 
 class ViewWithText(NavView):
@@ -8,16 +8,22 @@ class ViewWithText(NavView):
     nav_id = 'reverse'
 
     def get(self, request):
-
+        form = InvertForm()
+        self.buildContext({
+            'form': form,
+        })
         return self.render(request)
 
     def post(self, request):
-
-        text = request.POST.get('text')
-        self.buildContext({
-            'default_text':text,
-            'reversed_text': callAPI.reverseText(text),
-        })
+        form = InvertForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            text = form.cleaned_data.get('text')
+            self.buildContext({
+                'default_text':text,
+                'reversed_text': callAPI.reverseText(text),
+            })
+        self.buildContext({'form': form})
         return self.render(request)
 
 
@@ -45,12 +51,11 @@ class ViewWithGraphics(NavView):
 
     def get(self, request):
         functions = ['sin', 'cos', 'tan', 'tanh']
-        form = GraphicsForm(request.GET)
+        form = GraphicsForm()
         self.buildContext({'functions': functions,
                            'form': form
                            })
-        if form.is_valid():
-            pass
+
         return self.render(request)
 
 

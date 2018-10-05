@@ -36,10 +36,10 @@
             $("#graph_frame").contents().find("img").css("width","100%");
         }
         function checkForm(){
-                var xmin=$("#id_xmin").val();
-                var xmax=$("#id_xmax").val();
-                var ymin=$("#id_ymin").val();
-                var ymax=$("#id_ymax").val();
+                var xmin=+$("#id_xmin").val();
+                var xmax=+$("#id_xmax").val();
+                var ymin=+$("#id_ymin").val();
+                var ymax=+$("#id_ymax").val();
                 if (xmin>=xmax || ymin>=ymax){
                     alert('Введите корректные значения (xmin<xmax, ymin<ymax)');
                     return false;
